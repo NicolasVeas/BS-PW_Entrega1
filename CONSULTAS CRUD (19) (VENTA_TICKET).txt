@@ -1,0 +1,124 @@
+-- 1)  
+
+SELECT * FROM EVENTO;
+
+-- 2.1) 
+
+SELECT * FROM evento WHERE categoria = 'conciertos';
+
+-- 2.2) 
+
+SELECT * FROM evento WHERE categoria = 'familiares';
+
+-- 2.2) 
+
+SELECT * FROM evento WHERE categoria = 'deportes';
+
+-- 2.3) 
+
+SELECT * FROM evento WHERE categoria = 'especiales';
+
+-- 2.4) 
+
+SELECT * FROM evento WHERE categoria = 'culturales';
+
+-- 3)
+
+SELECT * FROM venta;
+
+-- 4)
+
+SELECT t.id_usuario, t.id_ticket, tv.id_venta 
+FROM ticket as t INNER JOIN ticket_venta as tv 
+ON t.id_ticket = tv.id_ticket 
+WHERE t.id_usuario = 1;
+
+-- 5) 
+
+INSERT INTO evento (fecha,hora,nombre,lugar,descripcion,categoria,capacidad) values ('2020-09-18','18:00:00','Mega Ramada 18chera','plaza victoria','Ramadas para celebrar el 18 de septiembre','familiares',20);
+
+-- 6) 
+
+SELECT * FROM ticket WHERE id_evento = 1;
+
+-- 7)
+
+DELETE FROM evento WHERE id_evento = 1;
+
+-- 8)
+
+UPDATE venta SET direccion='Avenida Jose Perez', hora='17:00:00' where id_venta = 1;
+
+/*
+UPDATE venta SET direccion='Avenida Jose Perez' where id_venta = 1;
+UPDATE venta SET hora='17:00:00' where id_venta = 1;
+*/
+-- 9)
+
+UPDATE evento SET fecha="2020-10-18", hora="19:00:00", lugar="Plaza Vergara", nombre="Mega Ultra Ramada 18chera", categoria="especiales", imagen=null, capacidad=100 WHERE id_evento = 3;
+/*
+UPDATE evento SET fecha='2020-10-18' where id_evento = 1;
+UPDATE evento SET hora='19:00:00' where id_evento = 1;
+UPDATE evento SET lugar='Plaza Vergara' where id_evento = 1;
+UPDATE evento SET nombre='Mega Ultra Ramada 18chera' where id_evento = 1;
+UPDATE evento SET descripcion='Ramadas para celebrar en fiestas patrias' where id_evento = 1;
+UPDATE evento SET categoria='especiales' where id_evento = 1;
+UPDATE evento SET imagen=null where id_evento = 1;
+UPDATE evento SET capacidad=100 where id_evento = 1;
+*/
+
+-- 10)
+
+UPDATE usuario SET nombre='Juancin', correo='juan.martinez2@gmail.com', apellido='Martines, num_telefono='943232322', sexo='M', password='xys123ewq', rut='10232321' where id_usuario=1 ;
+
+/*
+UPDATE usuario SET correo='juan.martinez2@gmail.com' where id_usuario=1;
+UPDATE usuario SET apellido='Martines' where id_usuario=1; 
+UPDATE usuario SET num_telefono='943232322' where id_usuario=1; 
+UPDATE usuario SET sexo='M' where id_usuario=1;
+UPDATE usuario SET password='xys123ewq' where id_usuario=1;
+UPDATE usuario SET rut='10232321' where id_usuario=1;
+*/
+
+-- 11) COMPRADOR REALIZA COMPRA DE TICKET, PRIMERO SE INSERTA LA VENTA, LUEGO SE INSERTA LOS TICKET EN LA TABLA TICKET_VENTA y SE ACTUALIZA EL ID_USUARIO Y DISPONIBILIDAD DE LOS TICKET COMPRADOS
+
+INSERT INTO venta (monto_total,hora,direccion,fecha) values (3000,'17:00:00','Avenida San Nicolas','2020-08-20');
+INSERT INTO ticket_venta(id_ticket,id_venta) values (25,2),(26,2),(27,2);
+UPDATE ticket set id_usuario = 1,disponible = 0 where id_ticket = 25;
+UPDATE ticket set id_usuario = 1,disponible = 0 where id_ticket = 26;
+UPDATE ticket set id_usuario = 1,disponible = 0 where id_ticket = 27;
+
+-- 12) 
+
+INSERT INTO ticket (id_evento,precio,disponible) VALUES (1,1000,"1");
+
+-- 13)
+
+ALTER TABLE venta ADD ano int(4);
+
+-- 14)
+
+ALTER TABLE ticket ADD nivel int(2);
+
+-- 15)
+
+ALTER TABLE usuario ADD ciudad varchar(20);
+
+-- 16)
+
+SELECT tv.id_ticket, v.fecha 
+FROM ticket_venta as tv INNER JOIN venta as v 
+ON tv.id_venta = v.id_venta 
+WHERE v.fecha = "2020-08-16";
+
+-- 17)
+
+SELECT * FROM ticket WHERE id_evento = 3 and disponible = 1;
+
+-- 18)
+
+DELETE FROM venta WHERE id_venta = 2;
+
+-- 19)
+
+SELECT * FROM usuario where tipo="comprador;
